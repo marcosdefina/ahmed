@@ -8,24 +8,29 @@ class Assets extends Component {
         super(props);
         this.state = {
             data: [],
-            newid: this.props.changeID
         }
      }
 
      getAssetbycollection(){
-        getAssetsByCollectionAsync(this.state.newid)
+        getAssetsByCollectionAsync(this.props.changeID)
         .then((response) => {
             this.setState({ data: response})
+            this.forceUpdate();
         })
      }
 
-     getID(){
-        this.getAssetbycollection();
-    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.changeID !== this.props.changeID) {
+          this.setState({
+            ...this.state,
+            stateId: this.props.changeID
+          }, this.getAssetbycollection())
+          console.log('new:'+this.props.changeID)
+        }
+      }
+
     componentDidMount(){
-            this.getID();
-            console.log(this.state)
-            console.log(this.props)
+        this.getAssetbycollection();
     }
 
     render(){
@@ -45,7 +50,5 @@ class Assets extends Component {
         )
     }
 }
-
-
 
 export default Assets;

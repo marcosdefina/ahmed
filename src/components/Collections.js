@@ -5,6 +5,8 @@ import * as data from '../data';
 const { getCollectionsAsync } = data;
 console.log(getCollectionsAsync());
 
+
+
 class Collections extends Component {
     constructor(props) {
         super(props);
@@ -18,16 +20,16 @@ class Collections extends Component {
         getCollectionsAsync()
         .then((response) => {
             this.setState({ collections: response });
-            console.log(response);
         });
      }
-
      handleClick = (e, id) => {
         e.preventDefault();
-        //console.log(test);
-        this.setState({ assetId: id, showComponent: true })
-        this.componentWillReceiveProps(id)
-        
+        this.setState({
+          ...this.state,
+          assetId: id,
+          showComponent: true
+          
+        })
       }
 
       componentWillReceiveProps(id) {
@@ -37,7 +39,6 @@ class Collections extends Component {
     componentDidMount(){
         this.getCollections();
     }
-    
 
     render(){
         return (
