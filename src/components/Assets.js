@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as data from '../data';
-import image from '../images/Batman.jpg';
+//import image from '../images/';
 
 const { getAssetsByCollectionAsync } = data; 
 class Assets extends Component {
@@ -15,6 +15,7 @@ class Assets extends Component {
         getAssetsByCollectionAsync(this.props.changeID)
         .then((response) => {
             this.setState({ data: response})
+            console.log(this.state.data)
             this.forceUpdate();
         })
      }
@@ -36,7 +37,7 @@ class Assets extends Component {
     render(){
         let itemList = this.state.data.map(function(item) {
         return <div key={item.id}>
-            <img src={image } alt="img"></img>
+            <img src={require('../images/'+item.path)} alt="img"></img>
             <p>{item.name}</p>
             <p>{item.id}</p>
             <button>Make Master</button>
